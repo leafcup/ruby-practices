@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+
 require "date"
 require "optparse"
 
@@ -47,7 +48,6 @@ end
 
 # 1日を曜日の位置に合わせる
 print "   " * date_start.wday
-
 
 # 指定の年、月の日付を出力
 (date_start..date_end).each do |d|
