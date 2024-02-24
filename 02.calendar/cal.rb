@@ -13,15 +13,15 @@ opt.parse(ARGV)
 # 年は1以上9999以下、月は1以上12以下が有効値。それ以外の数値、文字列が渡された時はエラーにする
 # calと同じにするため、月は小数が渡された場合は整数に丸めずにエラーにする
 if @year == nil
-  @year = Date.today.year
+  @year = Date.today.year  # 年が未指定のときは本日扱い
 elsif @year < 1 || @year > 9999 
   puts "year `#{@year}' not in range 1..9999"
   exit
 else
 end
 
-if @month == nil  # 月
-  @month = Date.today.month
+if @month == nil
+  @month = Date.today.month  # 月が未指定のときは本日扱い
 elsif @month.to_i < 1 || @month.to_i > 12 || @month.include?(".")
   puts "#{@month} is neither a month number (1..12) nor a name"
   exit
@@ -53,13 +53,13 @@ print "   " * date_start.wday
 (date_start..date_end).each do |d|
   if d.wday == 6  # 土曜日の場合
     if d == Date.today  # 本日の場合、印をつけて出力。折り返す、右寄せ
-      puts "\e[30m\e[47m#{d.day}\e[0m ".rjust(3)
+      puts "\e[30m\e[42m#{d.day}\e[0m ".rjust(3)
     else
       puts "#{d.day} ".rjust(3)  # 折り返す、右寄せ
     end
   else  # 土曜日以外の場合
     if d == Date.today  # 本日の場合、印をつけて出力。折り返さない、右寄せ
-      print "\e[30m\e[47m#{d.day}\e[0m ".rjust(3)
+      print "\e[30m\e[42m#{d.day}\e[0m ".rjust(3)
     else
       print "#{d.day} ".rjust(3)  # 折り返さない、右寄せ
     end
