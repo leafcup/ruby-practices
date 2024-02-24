@@ -5,8 +5,8 @@ require "optparse"
 
 # プログラム実行時に指定したオプションの引数を受け取る
 opt = OptionParser.new
-opt.on("-y VAL") {|y| @year = y.to_i }  # calの場合、年の小数点は整数に丸められるのでここで数値に変換する
-opt.on("-m VAL") {|m| @month = m }  # calの場合、月の小数点は整数に丸めないので、ここでは文字列のまま通す
+opt.on("-y VAL") {|y| @year = y }
+opt.on("-m VAL") {|m| @month = m }
 opt.parse(ARGV)
 
 # オプションが指定されなかった場合は年を今年、月を今月で処理する
@@ -14,10 +14,11 @@ opt.parse(ARGV)
 # calと同じにするため、月は小数が渡された場合は整数に丸めずにエラーにする
 if @year == nil
   @year = Date.today.year  # 年が未指定のときは本日扱い
-elsif @year < 1 || @year > 9999 
+elsif @year.to_i < 1 || @year.to_i > 9999
   puts "year `#{@year}' not in range 1..9999"
   exit
 else
+  @year = @year.to_i  # すべて通過できたら変数を数値に変換する
 end
 
 if @month == nil
