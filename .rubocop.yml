@@ -1,8 +1,7 @@
-inherit_gem:
-  rubocop-fjord:
-    - "config/rubocop.yml"
-
 # For plain Ruby scripts
 inherit_gem:
   rubocop-fjord:
     - "config/rubocop.yml"
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
