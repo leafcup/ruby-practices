@@ -13,12 +13,12 @@ opt.parse(ARGV)
 # 年は1以上9999以下、月は1以上12以下が有効値。それ以外の数値、文字列が渡された時はエラーにする
 # calと同じにするため、月は小数が渡された場合は整数に丸めずにエラーにする
 if @year == nil
-  @year = Date.today.year  # 年が未指定のときは本日扱い
+  @year = Date.today.year
 elsif @year.to_i < 1 || @year.to_i > 9999
   puts "year `#{@year}' not in range 1..9999"
   exit
 else
-  @year = @year.to_i  # すべて通過できたら変数を数値に変換する
+  @year = @year.to_i
 end
 
 if @month == nil
@@ -27,7 +27,7 @@ elsif @month.to_i < 1 || @month.to_i > 12 || @month.include?(".")
   puts "#{@month} is neither a month number (1..12) nor a name"
   exit
 else
-  @month = @month.to_i  # すべて通過できたら変数を数値に変換する
+  @month = @month.to_i
 end
 
 # 要求されている年、月のデータを定義
@@ -39,30 +39,14 @@ puts "#{date_start.month}月 #{date_start.year}".center(20)
 
 # 曜日を出力する
 week = ["日", "月", "火", "水", "木", "金", "土"]
-week.map do |w|
-  if w == "土"
-    puts "#{w} "  # 土曜の時は改行する
-  else
-    print "#{w} "  # 土曜以外は改行しない
-  end
-end
+puts week.join(" ")
 
 # 1日を曜日の位置に合わせる
 print "   " * date_start.wday
 
+
 # 指定の年、月の日付を出力
 (date_start..date_end).each do |d|
-  if d.wday == 6  # 土曜日の場合
-    if d == Date.today  # 本日の場合、印をつけて出力。折り返す、右寄せ
-      puts "\e[30m\e[42m#{d.day}\e[0m ".rjust(3)
-    else
-      puts "#{d.day} ".rjust(3)  # 折り返す、右寄せ
-    end
-  else  # 土曜日以外の場合
-    if d == Date.today  # 本日の場合、印をつけて出力。折り返さない、右寄せ
-      print "\e[30m\e[42m#{d.day}\e[0m ".rjust(3)
-    else
-      print "#{d.day} ".rjust(3)  # 折り返さない、右寄せ
-    end
-  end
+  d == Date.today ? (print "\e[7m\e[7m#{d.day}\e[0m ".rjust(3)):(print "#{d.day} ".rjust(3))
+  puts if d.saturday?
 end
