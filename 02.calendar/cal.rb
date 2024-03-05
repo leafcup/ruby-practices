@@ -46,8 +46,8 @@ print "   " * date_start.wday
 
 # 指定の年、月の日付を出力
 (date_start..date_end).each do |d|
-  date_string = sprintf("%2d", d.day)
-  date_string = "\e[7m\e[7m#{date_string}\e[0m" if d == Date.today
-  print date_string + " "
-  puts if d.saturday?
+  date_string = "#{d.day}".rjust(2)
+  date_string = "\e[7m#{date_string}\e[0m" if d == Date.today
+  print "#{date_string} "
+  puts if d.saturday? || d == date_end
 end
