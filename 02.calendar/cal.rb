@@ -12,22 +12,14 @@ opt.parse(ARGV)
 # オプションが指定されなかった場合は年を今年、月を今月で処理する
 # 年は1以上9999以下、月は1以上12以下が有効値。それ以外の数値、文字列が渡された時はエラーにする
 # calと同じにするため、月は小数が渡された場合は整数に丸めずにエラーにする
-if @year == nil
-  @year = Date.today.year
-elsif @year.to_i < 1 || @year.to_i > 9999
-  puts "year `#{@year}' not in range 1..9999"
-  exit
-else
-  @year = @year.to_i
+@year = @year&.to_i || Date.today.year 
+if @year < 1 || @year > 9999
+  abort "year `#{@year}' not in range 1..9999"
 end
 
-if @month == nil
-  @month = Date.today.month  # 月が未指定のときは本日扱い
-elsif @month.to_i < 1 || @month.to_i > 12 || @month.include?(".")
-  puts "#{@month} is neither a month number (1..12) nor a name"
-  exit
-else
-  @month = @month.to_i
+@month = @month&.to_i || Date.today.year 
+if @month < 1 || @month > 12
+abort "#{@month} is neither a month number (1..12) nor a name"
 end
 
 # 要求されている年、月のデータを定義
