@@ -13,14 +13,11 @@ opt.parse(ARGV)
 # 年は1以上9999以下、月は1以上12以下が有効値。それ以外の数値、文字列が渡された時はエラーにする
 # calと同じにするため、月は小数が渡された場合は整数に丸めずにエラーにする
 @year = @year&.to_i || Date.today.year 
-if @year < 1 || @year > 9999
-  abort "year `#{@year}' not in range 1..9999"
-end
+abort "year `#{@year}' not in range 1..9999" if @year < 1 || @year > 9999
 
-@month = @month&.to_i || Date.today.year 
-if @month < 1 || @month > 12
-abort "#{@month} is neither a month number (1..12) nor a name"
-end
+@month = @month&.to_i || Date.today.year
+p @month.integer?
+abort "#{@month} is neither a month number (1..12) nor a name" if @month < 1 || @month > 12
 
 # 要求されている年、月のデータを定義
 date_start = Date.new(@year, @month, 1)
