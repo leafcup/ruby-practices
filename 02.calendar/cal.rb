@@ -16,7 +16,6 @@ opt.parse(ARGV)
 abort "year `#{@year}' not in range 1..9999" if @year < 1 || @year > 9999
 
 @month = @month&.to_i || Date.today.year
-p @month.integer?
 abort "#{@month} is neither a month number (1..12) nor a name" if @month < 1 || @month > 12
 
 # 要求されている年、月のデータを定義
