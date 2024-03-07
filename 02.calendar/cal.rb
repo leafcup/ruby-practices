@@ -15,8 +15,13 @@ opt.parse(ARGV)
 @year = @year&.to_i || Date.today.year 
 abort "year `#{@year}' not in range 1..9999" if @year < 1 || @year > 9999
 
-@month = @month&.to_i || Date.today.year
-abort "#{@month} is neither a month number (1..12) nor a name" if @month < 1 || @month > 12
+if @month
+  abort "#{@month} is neither a month number (1..12) nor a name" if @month.match?(/\./) == true  # 少数が入力された時
+  @month = @month.to_i
+  abort "#{@month} is neither a month number (1..12) nor a name" if @month < 1 || @month > 12
+else
+  @month = Date.today.month
+end
 
 # 要求されている年、月のデータを定義
 date_start = Date.new(@year, @month, 1)
