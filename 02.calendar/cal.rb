@@ -13,12 +13,12 @@ opt.parse(ARGV)
 # 年は1以上9999以下、月は1以上12以下が有効値。それ以外の数値、文字列が渡された時はエラーにする
 # calと同じにするため、月は小数が渡された場合は整数に丸めずにエラーにする
 @year = @year&.to_i || Date.today.year 
-abort "year `#{@year}' not in range 1..9999" if @year < 1 || @year > 9999
+abort "年は1〜9999で指定してください" if @year < 1 || @year > 9999
 
 if @month
-  abort "#{@month} is neither a month number (1..12) nor a name" if @month.match?(/\./) == true  # 少数が入力された時
+  abort "年は整数で指定してください" unless @month.match?(/\A\d+\z/)  # 少数が入力された時
   @month = @month.to_i
-  abort "#{@month} is neither a month number (1..12) nor a name" if @month < 1 || @month > 12
+  abort "月は1〜12で指定してください" if @month < 1 || @month > 12
 else
   @month = Date.today.month
 end
