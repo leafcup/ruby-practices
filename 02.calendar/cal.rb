@@ -16,7 +16,7 @@ opt.parse(ARGV)
 abort "年は1〜9999で指定してください" if @year < 1 || @year > 9999
 
 if @month
-  abort "年は整数で指定してください" unless @month.match?(/\A\d+\z/)  # 少数が入力された時
+  abort "月は整数で指定してください" unless @month.match?(/\A\d+\z/)
   @month = @month.to_i
   abort "月は1〜12で指定してください" if @month < 1 || @month > 12
 else
