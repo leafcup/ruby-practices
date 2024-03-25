@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
+# frozen_string_literal: true
 
 score = ARGV[0]
 scores = score.split(',')
@@ -22,31 +23,30 @@ while frames.length > 10
   frames[-1].delete_at(1) if frames[-1][0] == 10
 end
 
-
-def strike(i, next1, next2)
-  if i <= 7 && next1[0] == 10
+def strike(fnum, next1, next2)
+  if fnum <= 7 && next1[0] == 10
     10 + next2[0]
-  elsif i <= 8
+  elsif fnum <= 8
     next1[0..1].sum
-  else  # 10フレーム目
+  else # 10フレーム目
     0
   end
 end
 
-def spare(i, next1)
-  if i <= 8
+def spare(fnum, next1)
+  if fnum <= 8
     next1[0]
   else # 10フレーム目
     0
   end
 end
 
-point = frames.each_with_index.sum do |frame, i|
-  frame.sum + if frame[0] == 10  # strikeの場合
-                strike(i, frames[i + 1], frames[i + 2])
-              elsif frame.sum == 10  # spareの場合
-                spare(i, frames[i + 1])
-              else  # その他の場合
+point = frames.each_with_index.sum do |frame, fnum|
+  frame.sum + if frame[0] == 10 # strikeの場合
+                strike(fnum, frames[fnum + 1], frames[fnum + 2])
+              elsif frame.sum == 10 # spareの場合
+                spare(fnum, frames[fnum + 1])
+              else # その他の場合
                 0
               end
 end
