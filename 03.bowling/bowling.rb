@@ -23,19 +23,19 @@ while frames.length > 10
   frames[-1].delete_at(1) if frames[-1][0] == 10
 end
 
-def strike(fnum, next1, next2)
-  if fnum <= 7 && next1[0] == 10
-    10 + next2[0]
+def strike(fnum, next_frame, next_next_frame)
+  if fnum <= 7 && next_frame[0] == 10
+    10 + next_next_frame[0]
   elsif fnum <= 8
-    next1[0..1].sum
+    next_frame[0..1].sum
   else # 10フレーム目
     0
   end
 end
 
-def spare(fnum, next1)
+def spare(fnum, next_frame)
   if fnum <= 8
-    next1[0]
+    next_frame[0]
   else # 10フレーム目
     0
   end
